@@ -52,13 +52,22 @@ export default function AdminProductsPage() {
     toast.success('Product added successfully!');
   };
 
-  const handleEditProduct = (productData: Product) => {
-    setProducts(
-      products.map((p) => (p.id === productData.id ? productData : p))
-    );
-    setEditingProduct(null);
-    toast.success('Product updated successfully!');
-  };
+  const handleEditProduct = (productData: Product | Omit<Product, "id">) => {
+  if ('id' in productData) {
+    // This is an edit operation (has id)
+    setProducts(products.map(p => 
+      p.id === productData.id ? productData as Product : p
+    ));
+  } else {
+    // This is a new product (no id)
+    const newProduct = {
+      ...productData,
+      id: Date.now().toString() // or generate UUID
+    };
+    setProducts([...products, newProduct]);
+  }
+  setEditingProduct(null);
+};
 
   const handleDeleteProduct = () => {
     if (deletingProduct) {
