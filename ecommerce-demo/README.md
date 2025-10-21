@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ShopDemo - E-Commerce Platform
 
-## Getting Started
+A modern, full-featured e-commerce platform built with Next.js 14, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+![ShopDemo Screenshot](https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=600&fit=crop)
 
+## ✨ Features
+
+### Customer Features
+- 🛍️ **Product Browsing** - Search, filter, and sort products by category, price, and more
+- 🛒 **Shopping Cart** - Add/remove items, adjust quantities with real-time total calculations
+- 💳 **Checkout Flow** - Multi-step checkout with shipping information and mock payment
+- 👤 **User Authentication** - Secure login/register with JWT tokens
+- 📦 **Order History** - View past orders with detailed information and status tracking
+- ❤️ **Wishlist** - Save favorite products for later
+- 📱 **Responsive Design** - Optimized for desktop, tablet, and mobile devices
+
+### Admin Features
+- 📊 **Dashboard** - Overview of sales, orders, and key metrics
+- 📝 **Product Management** - Full CRUD operations for products
+- 🎯 **Stock Management** - Low stock alerts and inventory tracking
+- 📈 **Order Management** - View and update order statuses
+- 🔐 **Role-Based Access** - Admin-only routes and features
+
+## 🚀 Tech Stack
+
+- **Frontend:** Next.js 14 (App Router), React 18, TypeScript
+- **State Management:** Redux Toolkit
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Notifications:** Sonner
+- **Authentication:** Mock JWT (ready for backend integration)
+- **Database:** Mock data (ready for backend integration)
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js 18+ installed
+- npm or yarn package manager
+
+### Setup
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/ecommerce-demo.git
+cd ecommerce-demo
+```
+
+2. **Install dependencies**
+```bash
+npm install
+# or
+yarn install
+```
+
+3. **Run the development server**
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. **Open your browser**
+Navigate to [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔑 Demo Credentials
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Customer Account
+- **Email:** user@demo.com
+- **Password:** password
 
-## Learn More
+### Admin Account
+- **Email:** admin@demo.com
+- **Password:** admin123
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+ecommerce-demo/
+├── src/
+│   ├── app/                    # Next.js 14 app directory
+│   │   ├── (auth)/            # Auth pages (login, register)
+│   │   ├── (shop)/            # Shop pages (products, cart, checkout)
+│   │   ├── (user)/            # User pages (profile, orders)
+│   │   ├── (admin)/           # Admin pages (dashboard, management)
+│   │   ├── about/             # About page
+│   │   ├── contact/           # Contact page
+│   │   ├── layout.tsx         # Root layout
+│   │   ├── page.tsx           # Homepage
+│   │   └── not-found.tsx      # 404 page
+│   ├── components/
+│   │   ├── admin/             # Admin components
+│   │   ├── cart/              # Cart components
+│   │   ├── checkout/          # Checkout components
+│   │

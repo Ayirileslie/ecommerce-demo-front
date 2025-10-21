@@ -1,16 +1,29 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, User, Search, Menu } from 'lucide-react';
-import { useAppSelector } from '@/lib/redux/hooks';
+import { ShoppingCart, User, Search, Menu, LogOut, UserCircle, Package, Settings } from 'lucide-react';
+import { useAppSelector, useAppDispatch } from '@/lib/redux/hooks';
+import { logout } from '@/lib/redux/slices/authSlice';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const user = useAppSelector((state) => state.auth.user);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setUserMenuOpen(false);
+    toast.success('Logged out successfully');
+    router.push('/');
+  };
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -70,18 +83,77 @@ export default function Navbar() {
 
             {/* User Menu */}
             {user ? (
-              <Link href="/profile">
-                <div className="flex items-center space-x-2 cursor-pointer">
-                  <User className="h-6 w-6 text-gray-700 hover:text-blue-600 transition" />
-                  <span className="hidden md:block text-sm text-gray-700">
+              <div className="relative">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center space-x-2 hover:bg-gray-100 px-3 py-2 rounded-lg transition"
+                >
+                  <User className="h-6 w-6 text-gray-700" />
+                  <span className="hidden md:block text-sm text-gray-700 font-medium">
                     {user.fullName.split(' ')[0]}
                   </span>
-                </div>
-              </Link>
+                </button>
+
+                {/* Dropdown Menu */}
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-200">
+                      <p className="text-sm font-semibold text-gray-900">
+                        {user.fullName}
+                      </p>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                      {user.role === 'admin' && (
+                        <span className="inline-block mt-1 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
+                          Admin
+                        </span>
+                      )}
+                    </div>
+
+                    <Link
+                      href="/profile"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <UserCircle className="h-4 w-4 mr-3" />
+                      My Profile
+                    </Link>
+
+                    <Link
+                      href="/orders"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <Package className="h-4 w-4 mr-3" />
+                      My Orders
+                    </Link>
+
+                    {user.role === 'admin' && (
+                      <Link
+                        href="/admin/dashboard"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <Settings className="h-4 w-4 mr-3" />
+                        Admin Dashboard
+                      </Link>
+                    )}
+
+                    <hr className="my-2" />
+
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                    >
+                      <LogOut className="h-4 w-4 mr-3" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 href="/login"
-                className="text-gray-700 hover:text-blue-600 transition"
+                className="text-gray-700 hover:text-blue-600 transition font-medium"
               >
                 Login
               </Link>
